@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ড্যাশবোর্ড</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page">
+  <div class="announcement" id="announcementBox" data-announcement style="display:none;"></div>
+
+  <div class="topbar">
+    <div class="who">
+      <div class="avatar" id="avatarLetter">·</div>
+      <div><div class="name" id="whoName">—</div><div class="sub"><span class="dot"></span>যাচাইকৃত মার্চেন্ট</div></div>
+    </div>
+    <button class="icon-btn" id="logoutBtn" title="লগআউট"></button>
+  </div>
+
+  <div class="balance-card">
+    <div class="lbl">উপলব্ধ ব্যালেন্স</div>
+    <div class="amt">৳<span id="balanceVal">0.00</span></div>
+    <div class="stat-grid">
+      <div class="stat"><div class="lbl" id="lblMonthly"></div><div class="val">৳<span id="monthlyVal">0</span></div></div>
+      <div class="stat"><div class="lbl" id="lblToday"></div><div class="val">৳<span id="todayVal">0</span></div></div>
+      <div class="stat"><div class="lbl" id="lblVolume"></div><div class="val">৳<span id="volumeVal">0</span></div></div>
+      <div class="stat"><div class="lbl" id="lblCount"></div><div class="val" id="txCountVal">0</div></div>
+    </div>
+  </div>
+
+  <section class="block"><h3 id="txHeading"></h3><div class="list-card" id="txList"><div class="empty">লোড হচ্ছে…</div></div></section>
+</div>
+<div id="navSlot"></div>
+<script src="/js/app.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

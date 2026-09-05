@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>পেমেন্ট</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  body.pay-body{display:flex; align-items:flex-start; justify-content:center; padding:0 0 40px; background:#EAF1FC;}
+  .shell{width:100%; max-width:430px;}
+  .hidden{display:none !important;}
+
+  /* ---- top bar shared by loading/select/pay states -------------------- */
+  .paytop{display:flex; align-items:center; justify-content:space-between; padding:16px; background:#fff;}
+  .paytop .side{display:flex; align-items:center; gap:8px;}
+  .paytop .sqbtn{width:38px; height:38px; border-radius:10px; border:1.5px solid var(--border); background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink); cursor:pointer;}
+  .paytop .timer{font-size:11.5px; color:var(--ink-soft); display:flex; align-items:center; gap:5px;}
+  .paytop .timer .mono{font-weight:700; color:var(--ink);}
+
+  /* ---- brand / details row (method-select state) ----------------------- */
+  .brandrow{display:flex; align-items:center; gap:14px; padding:18px 20px 6px;}
+  .brandrow .mark{width:56px; height:56px; border-radius:16px; background:var(--brand-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; flex:none;}
+  .brandrow h2{font-size:17px; margin-bottom:8px;}
+  .brandrow .viewdetails{display:inline-flex; align-items:center; gap:5px; background:var(--brand-soft); color:var(--brand-deep); font-size:11.5px; font-weight:700; padding:6px 12px; border-radius:var(--radius-pill); border:none; cursor:pointer; font-family:inherit;}
+  .detailsbox{margin:6px 20px 0; background:var(--surface-alt); border-radius:14px; padding:12px 14px; font-size:12.5px; color:var(--ink-soft); line-height:1.8; display:none;}
+  .detailsbox.show{display:block;}
+  .detailsbox b{color:var(--ink);}
+
+  .contactrow{display:flex; gap:12px; padding:16px 20px 4px;}
+  .contactrow a{flex:1; height:46px; border-radius:14px; border:1.5px solid var(--border); background:#fff; display:flex; align-items:center; justify-content:center; color:var(--ink-soft);}
+  .contactrow a.wa{color:#188A50;}
+  .contactrow a.call{color:var(--brand);}
+
+  .sectionbar{margin:20px 20px 14px; background:var(--brand); color:#fff; text-align:center; padding:13px; border-radius:14px; font-weight:700; font-size:14px;}
+
+  .method-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:0 20px;}
+  .method-card{border:1.5px solid var(--border); border-radius:18px; padding:18px 10px 14px; background:#fff; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px; font-family:inherit;}
+  .method-card img{width:52px; height:52px; border-radius:12px; object-fit:contain;}
+  .method-card .name{font-weight:700; font-size:13.5px;}
+  .method-card:disabled{opacity:.45; cursor:not-allowed;}
+  .method-card:active{transform:scale(.98);}
+
+  .amountbar{position:sticky; bottom:0; margin-top:26px; padding:18px 20px 22px; background:linear-gradient(180deg, rgba(234,241,252,0), #EAF1FC 25%); text-align:center;}
+  .amountbar .box{background:#fff; border:1.5px solid var(--border); border-radius:16px; padding:14px; font-weight:700; color:var(--brand-deep); font-size:15px;}
+
+  /* ---- pay / trx-submit state ------------------------------------------ */
+  .logo-box{background:var(--surface-alt); border:1px solid var(--border); border-radius:22px; padding:24px; display:flex; align-items:center; justify-content:center; gap:10px; margin:14px 20px;}
+  .logo-box img{width:44px; height:44px; border-radius:12px;}
+  .logo-box .lbl{font-weight:800; font-size:17px;}
+
+  .pay-card{margin:0 16px 16px; background:var(--pay-accent, var(--bkash)); border-radius:24px; padding:24px 20px 20px; color:#fff;}
+  .pay-card h2{text-align:center; font-size:16.5px; margin:0 0 16px; color:#fff;}
+  input.trxinput{width:100%; border:none; border-radius:14px; padding:15px 16px; font-size:15px; font-family:'JetBrains Mono',monospace; margin-bottom:6px; outline:none; color:var(--ink); background:#fff; text-align:center;}
+  input.trxinput::placeholder{color:#A7ABC0; font-family:'Hind Siliguri', sans-serif;}
+  ul.instr{list-style:none; margin:14px 0 0; padding:0;}
+  ul.instr li{padding:13px 2px; display:flex; gap:10px; align-items:flex-start; font-size:13px; line-height:1.65; border-top:1px solid rgba(255,255,255,.22);}
+  ul.instr li .dot{flex:none; margin-top:7px; width:6px; height:6px; border-radius:50%; background:#fff;}
+  ul.instr .hl{color:var(--gold); font-weight:700;}
+  button.copytag{display:inline-flex; align-items:center; gap:5px; background:rgba(0,0,0,.28); color:#fff; border:none; padding:5px 11px; border-radius:8px; font-size:11px; font-weight:700; margin-left:6px; cursor:pointer; font-family:inherit; vertical-align:middle;}
+  button.copytag.copied{background:#fff; color:var(--pay-accent, var(--bkash));}
+  .submitwrap{padding:0 16px;}
+  button.submit{width:100%; border:none; border-radius:16px; padding:16px; background:var(--pay-accent, var(--bkash)); color:#fff; font-size:15.5px; font-weight:700; font-family:'Hind Siliguri', sans-serif; cursor:pointer;}
+  button.submit:disabled{opacity:.6; cursor:not-allowed;}
+  .pay-loading{display:none; flex-direction:column; align-items:center; justify-content:center; padding:46px 10px;}
+  .pay-loading.show{display:flex;}
+  .ring-big{width:60px; height:60px; border-radius:50%; border:5px solid rgba(255,255,255,.3); border-top-color:#fff; animation:spin .8s linear infinite;}
+  .foot{margin:16px 0 0; display:flex; align-items:center; justify-content:center; gap:6px; font-size:11.5px; color:var(--ink-faint);}
+
+  /* ---- center panels (loading / error / success / expired) ------------- */
+  .center-panel{text-align:center; padding:60px 24px 20px;}
+  .center-panel .icon{width:64px; height:64px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center;}
+  .center-panel.good .icon{background:var(--good-bg); color:var(--good);}
+  .center-panel.bad .icon{background:var(--bad-bg); color:var(--bad);}
+  .center-panel h2{font-size:18px; margin:0 0 8px;}
+  .center-panel p{font-size:13.5px; color:var(--ink-soft); line-height:1.6;}
+</style>
+</head>
+<body class="pay-body">
+<div class="shell">
+
+  <div id="loadingState"><div class="center-panel"><p>লোড হচ্ছে…</p></div></div>
+
+  <div class="hidden" id="errorState"><div class="center-panel bad"><div class="icon" id="errIcon"></div><h2 id="errorTitle">লিংকটি সঠিক নয়</h2><p id="errorMsg"></p></div></div>
+
+  <div class="hidden" id="selectMethodState">
+    <div class="paytop">
+      <div class="side"><button class="sqbtn" id="backHomeBtn1" title="হোমে ফিরুন"></button></div>
+      <div class="timer" id="timerWrap1"><span>লিংক সচল থাকবে</span><span class="mono" id="timerText1">15:00</span></div>
+      <div class="side"><button class="sqbtn" id="closeBtn" title="বন্ধ করুন"></button></div>
+    </div>
+
+    <div class="brandrow">
+      <div class="mark" data-site-mark>P</div>
+      <div>
+        <h2 data-site-name>PayLink</h2>
+        <button class="viewdetails" id="viewDetailsBtn"></button>
+      </div>
+    </div>
+    <div class="detailsbox" id="detailsBox"></div>
+
+    <div class="contactrow" id="contactRow"></div>
+
+    <div class="sectionbar">মোবাইল ব্যাংকিং</div>
+    <div class="method-grid" id="methodGrid"></div>
+
+    <div class="amountbar"><div class="box">পরিশোধ করুন ৳<span id="selectAmount">0</span></div></div>
+  </div>
+
+  <div class="hidden" id="payState">
+    <div class="paytop">
+      <div class="side"><button class="sqbtn" id="backMethodBtn" title="মেথড নির্বাচনে ফিরুন"></button></div>
+      <div class="timer" id="timerWrap2"><span>সচল থাকবে</span><span class="mono" id="timerText2">15:00</span></div>
+      <div class="side" style="width:38px;"></div>
+    </div>
+    <div class="logo-box" id="methodLogoBox"></div>
+    <form id="verifyForm">
+      <div class="pay-card" id="payCard">
+        <div id="payFormContent">
+          <h2>ট্রান্জেকশন আইডি দিন</h2>
+          <input class="trxinput" id="trxId" placeholder="ট্রান্জেকশন আইডি দিন" autocomplete="off" required />
+          <ul class="instr" id="instrList"></ul>
+        </div>
+        <div class="pay-loading" id="payLoading"><div class="ring-big"></div></div>
+      </div>
+      <div class="submitwrap"><button class="submit" type="submit" id="submitBtn">যাচাই করুন</button></div>
+    </form>
+    <div class="foot" id="secureFoot"></div>
+  </div>
+
+  <div class="hidden" id="successState"><div class="center-panel good"><div class="icon" id="successIcon"></div><h2>পেমেন্ট সফল হয়েছে!</h2><p>ধন্যবাদ! আপনার পেমেন্ট সফলভাবে যাচাই হয়েছে।</p><p class="mono" id="successTrx" style="margin-top:10px; font-size:12.5px; color:var(--ink);"></p></div></div>
+
+  <div class="hidden" id="expiredState"><div class="center-panel bad"><div class="icon" id="expiredIcon"></div><h2>মেয়াদ শেষ হয়ে গেছে</h2><p id="expiredMsg">এই পেমেন্ট লিংকটির মেয়াদ শেষ হয়ে গেছে। হোম পেজে নিয়ে যাওয়া হচ্ছে…</p></div></div>
+
+</div>
+<script src="/js/app.js"></script>
+<script src="/js/invoice.js"></script>
+</body>
+</html>

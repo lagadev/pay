@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="0" fill="#ffffff"/>
+  <circle cx="100" cy="80" r="34" fill="#EE4E24"/>
+  <text x="100" y="90" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">৳</text>
+  <text x="100" y="152" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#EE4E24" text-anchor="middle">নগদ</text>
+</svg>

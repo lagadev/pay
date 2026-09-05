@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="0" fill="#ffffff"/>
+  <g transform="translate(100,78) rotate(-20)">
+    <path d="M0,-34 C10,-24 12,-6 8,10 L-8,10 C-12,-6 -10,-24 0,-34 Z" fill="#6C2C91"/>
+    <circle cx="0" cy="-14" r="5" fill="#fff"/>
+  </g>
+  <text x="100" y="152" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#6C2C91" text-anchor="middle">Rocket</text>
+</svg>

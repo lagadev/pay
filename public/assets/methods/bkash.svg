@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="0" fill="#ffffff"/>
+  <g transform="translate(100,92)">
+    <path d="M0,-46 C22,-40 34,-18 28,4 C22,26 0,40 -22,34 C-40,30 -50,12 -46,-6 C-42,-24 -22,-52 0,-46 Z" fill="#E2136E"/>
+    <text x="0" y="10" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">b</text>
+  </g>
+  <text x="100" y="152" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#E2136E" text-anchor="middle">bKash</text>
+</svg>

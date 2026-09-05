@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="0" fill="#ffffff"/>
+  <circle cx="100" cy="72" r="20" fill="#F5B93D"/>
+  <path d="M78,86 a22,22 0 0 0 44,0" fill="none" stroke="#1C3FAA" stroke-width="10" stroke-linecap="round"/>
+  <text x="100" y="152" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#1C3FAA" text-anchor="middle">উপায়</text>
+</svg>

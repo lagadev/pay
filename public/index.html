@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PayLink — bKash ও Nagad পেমেন্ট প্ল্যাটফর্ম</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  .wrap{max-width:520px; margin:0 auto; padding:0 20px 60px;}
+  .brandbar{display:flex; align-items:center; justify-content:space-between; background:var(--surface); border-radius:20px; padding:12px 16px; margin:18px 0 30px; box-shadow:var(--shadow-card); border:1px solid var(--border);}
+  .brandbar .b{display:flex; align-items:center; gap:10px; font-weight:800; font-size:16px;}
+  .brandbar .b .mark{width:32px; height:32px; border-radius:10px; background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800;}
+  .brandbar .live{font-size:11px; color:var(--good); font-weight:700; display:flex; align-items:center; gap:5px;}
+  .brandbar .live .dot{width:6px; height:6px; border-radius:50%; background:var(--good);}
+  .hero{text-align:center; padding:6px 0 28px;}
+  .hero h1{font-size:clamp(26px,7vw,36px); line-height:1.25; margin:16px 0 14px; font-weight:800;}
+  .hero p{color:var(--ink-soft); font-size:14.5px; max-width:380px; margin:0 auto 24px; line-height:1.75;}
+  .hero .ctas{display:flex; flex-direction:column; gap:10px; align-items:center;}
+  .hero .ctas .btn{width:100%; max-width:280px;}
+  .freepill{margin:24px auto 0; display:flex; flex-wrap:wrap; justify-content:center; gap:8px 16px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:13px 18px; font-size:12px; font-weight:700; color:var(--ink); max-width:400px;}
+  .methodrow{display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:22px;}
+  .methodchip{display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:9px 14px; font-weight:700; font-size:13px;}
+  .methodchip .sw{width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:800;}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0;}
+  .feat{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:18px 16px;}
+  .feat .ico{width:36px; height:36px; border-radius:11px; background:var(--brand-soft); display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--brand-deep);}
+  .feat h3{font-size:13.5px; margin:0 0 6px;}
+  .feat p{font-size:11.5px; color:var(--ink-soft); margin:0; line-height:1.55;}
+  section#works h2{text-align:center; font-size:19px; margin:0 0 20px;}
+  .flow{display:flex; flex-direction:column; gap:10px;}
+  .flow .step{display:flex; gap:12px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:14px 16px; align-items:flex-start;}
+  .flow .step .n{flex:none; width:26px; height:26px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;}
+  .flow .step p{font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.6;}
+  footer.site{text-align:center; padding:32px 0 10px; color:var(--ink-faint); font-size:12px;}
+  footer.site a{color:var(--brand-deep); font-weight:700;}
+  [data-maintenance-hidden]{display:none;}
+</style>
+</head>
+<body>
+<div class="wrap" data-maintenance-hidden>
+  <div class="brandbar">
+    <div class="b"><span class="mark" data-site-mark>P</span><span data-site-name>PayLink</span></div>
+    <div class="live"><span class="dot"></span>লাইভ</div>
+  </div>
+
+  <div class="hero">
+    <div class="pill">মাল্টি-মার্চেন্ট পেমেন্ট প্ল্যাটফর্ম</div>
+    <h1>bKash, Nagad, Rocket ও Upay<br/>পেমেন্ট নিন কয়েক সেকেন্ডে</h1>
+    <p>সাইনআপ করুন, একটি API key নিন, আর প্ল্যাটফর্মের যাচাইকৃত নম্বর দিয়ে পেমেন্ট নেওয়া শুরু করুন — SMS দিয়ে অটো-ভেরিফাই হয়ে সরাসরি আপনার ওয়ালেটে জমা হবে।</p>
+    <div class="ctas">
+      <a class="btn btn-primary" id="signupCta" href="/signup.html">শুরু করুন →</a>
+      <a class="btn btn-ghost" href="/docs.html">কীভাবে কাজ করে দেখুন</a>
+    </div>
+    <div class="freepill">
+      <span>বিনামূল্যে সেটআপ</span><span>তাৎক্ষণিক SMS ভেরিফিকেশন</span><span>স্বচ্ছ ফি</span>
+    </div>
+    <div class="methodrow" id="methodRow"></div>
+  </div>
+
+  <div class="grid">
+    <div class="feat"><div class="ico" id="icoBolt"></div><h3>তাৎক্ষণিক ইনভয়েস</h3><p>নিজের ওয়েবসাইট বা বট থেকে এক API কলে পে-লিংক তৈরি করুন।</p></div>
+    <div class="feat"><div class="ico" id="icoSms"></div><h3>অটো-ভেরিফাইড</h3><p>নিশ্চিতকরণ SMS নিজে থেকেই Transaction ID এর সাথে মিলে যায়।</p></div>
+    <div class="feat"><div class="ico" id="icoWebhook"></div><h3>ওয়েবহুক</h3><p>পেমেন্ট নিশ্চিত হওয়ার সাথে সাথেই সাইন করা কলব্যাক পাবেন।</p></div>
+    <div class="feat"><div class="ico" id="icoShield"></div><h3>নিরাপদ</h3><p>প্রতিটি Transaction ID শুধু একবারই একটি ইনভয়েস যাচাই করতে পারবে।</p></div>
+  </div>
+
+  <section id="works">
+    <h2>যেভাবে কাজ করে</h2>
+    <div class="flow">
+      <div class="step"><div class="n">১</div><p>ফ্রি মার্চেন্ট অ্যাকাউন্ট খুলুন এবং আপনার API key সংগ্রহ করুন।</p></div>
+      <div class="step"><div class="n">২</div><p>একটি ইনভয়েস তৈরি করুন — আপনার কাস্টমার একটি পে-লিংক পাবে।</p></div>
+      <div class="step"><div class="n">৩</div><p>কাস্টমার পেমেন্ট করে Transaction ID দেবে — তাৎক্ষণিক যাচাই হয়ে যাবে।</p></div>
+      <div class="step"><div class="n">৪</div><p>আপনার ওয়ালেটে (ফি বাদে) জমা হবে — যেকোনো সময় উত্তোলন করুন।</p></div>
+    </div>
+  </section>
+
+  <footer class="site">Cloudflare Workers দিয়ে তৈরি · <a href="/docs.html">ডেভেলপার ডকস</a></footer>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+(function(){
+  var PL = window.PayLink;
+  PL.loadSettings().then(function(settings){
+    if (PL.enforceMaintenance(settings)) return;
+
+    document.getElementById("icoBolt").innerHTML = PL.icon("bolt");
+    document.getElementById("icoSms").innerHTML = PL.icon("sms");
+    document.getElementById("icoWebhook").innerHTML = PL.icon("webhook");
+    document.getElementById("icoShield").innerHTML = PL.icon("shield");
+
+    if (!settings.signupEnabled) document.getElementById("signupCta").style.display = "none";
+
+    var chips = [];
+    if (settings.methods.bkash) chips.push('<div class="methodchip"><span class="sw" style="background:var(--bkash)">৳</span>bKash</div>');
+    if (settings.methods.nagad) chips.push('<div class="methodchip"><span class="sw" style="background:var(--nagad)">৳</span>Nagad</div>');
+    if (settings.methods.rocket) chips.push('<div class="methodchip"><span class="sw" style="background:var(--rocket)">৳</span>Rocket</div>');
+    if (settings.methods.upay) chips.push('<div class="methodchip"><span class="sw" style="background:var(--upay)">৳</span>Upay</div>');
+    document.getElementById("methodRow").innerHTML = chips.join("");
+  });
+})();
+</script>
+</body>
+</html>

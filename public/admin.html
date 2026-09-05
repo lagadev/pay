@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>অ্যাডমিন প্যানেল</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  .admin-wrap{max-width:680px; margin:0 auto; padding:20px 16px 60px;}
+  .admin-gate{max-width:360px; margin:70px auto; text-align:center;}
+  .admin-gate .mark{width:52px; height:52px; border-radius:16px; background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;}
+  .admin-gate h1{font-size:20px; margin:0 0 4px;}
+  .admin-gate p{color:var(--ink-soft); font-size:13px; margin-bottom:18px;}
+  .admin-gate input{width:100%; border:1.5px solid var(--border); background:var(--surface-alt); border-radius:14px; padding:13px 14px; font-size:14px; margin-bottom:12px; text-align:center; font-family:inherit;}
+
+  .admin-topbar{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+  .admin-topbar .t{font-size:18px; font-weight:800; display:flex; align-items:center; gap:9px;}
+  .admin-tabs{display:flex; gap:6px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:6px; margin-bottom:18px; overflow-x:auto;}
+  .admin-tabs button{flex:none; white-space:nowrap; background:none; border:none; padding:10px 14px; border-radius:12px; font-weight:700; font-size:12.5px; color:var(--ink-soft); cursor:pointer; font-family:inherit;}
+  .admin-tabs button.active{background:var(--brand); color:#fff;}
+  .admin-view{display:none;} .admin-view.active{display:block;}
+
+  .ov-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px;}
+  .ov-card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:15px;}
+  .ov-card .lbl{font-size:11px; color:var(--ink-soft); font-weight:600; margin-bottom:6px; display:flex; align-items:center; gap:6px;}
+  .ov-card .val{font-size:18px; font-weight:800; font-family:'JetBrains Mono',monospace;}
+
+  .searchrow{display:flex; gap:8px; margin-bottom:12px;}
+  .searchrow input{flex:1; border:1.5px solid var(--border); background:var(--surface); border-radius:12px; padding:11px 13px; font-size:13px; font-family:inherit;}
+  .searchrow select{border:1.5px solid var(--border); background:var(--surface); border-radius:12px; padding:11px 13px; font-size:12.5px; font-family:inherit;}
+
+  .merchant-card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:14px 16px; margin-bottom:10px;}
+  .merchant-card .mtop{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:10px;}
+  .merchant-card .mname{font-weight:700; font-size:14px;}
+  .merchant-card .mmeta{font-size:11.5px; color:var(--ink-soft); line-height:1.6; margin-top:2px;}
+  .merchant-card .mstats{display:flex; gap:16px; margin-top:10px; font-size:12px;}
+  .merchant-card .mstats b{display:block; font-size:14px; font-family:'JetBrains Mono',monospace;}
+  .merchant-card .mactions{display:flex; gap:8px; margin-top:10px;}
+  .merchant-card .mactions button{flex:1; padding:9px; font-size:12px; border-radius:10px; border:1px solid var(--border); background:var(--surface-alt); font-weight:700; cursor:pointer; font-family:inherit;}
+
+  .inv-card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:13px 15px; margin-bottom:9px;}
+  .inv-card .top{display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;}
+  .inv-card .id{font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700;}
+  .inv-card .meta{font-size:11.5px; color:var(--ink-soft); line-height:1.6;}
+  .inv-card .actions{margin-top:9px; display:flex; gap:8px;}
+  .inv-card .actions button{flex:1; padding:8px; font-size:12px; border-radius:9px; border:none; background:var(--brand); color:#fff; font-weight:700; cursor:pointer; font-family:inherit;}
+
+  .po-card{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:14px 16px; margin-bottom:10px;}
+  .po-card .top{display:flex; justify-content:space-between; margin-bottom:6px;}
+  .po-card .amt{font-weight:800; font-size:16px; font-family:'JetBrains Mono',monospace;}
+  .po-card .meta{font-size:11.5px; color:var(--ink-soft); line-height:1.6;}
+  .po-card .actions{display:flex; gap:8px; margin-top:10px;}
+  .po-card .actions button{flex:1; padding:9px; border-radius:10px; border:none; font-weight:700; font-size:12.5px; cursor:pointer; font-family:inherit;}
+  .po-card .actions .complete{background:var(--good); color:#fff;}
+  .po-card .actions .reject{background:var(--bad-bg); color:var(--bad);}
+
+  .po-tabs{display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;}
+  .po-tabs button{background:var(--surface-alt); border:none; padding:8px 14px; border-radius:999px; font-size:12px; font-weight:700; cursor:pointer; font-family:inherit; color:var(--ink-soft);}
+  .po-tabs button.active{background:var(--brand); color:#fff;}
+
+  .settings-form .field{margin-bottom:14px;}
+  .settings-form .field input{width:100%; border:1.5px solid var(--border); background:var(--surface-alt); border-radius:14px; padding:12px 14px; font-size:13.5px; font-family:inherit;}
+  .settings-form .field.mono input{font-family:'JetBrains Mono',monospace;}
+  .settings-group-title{margin:20px 0 6px; font-weight:700; font-size:13px; color:var(--ink-soft); display:flex; align-items:center; gap:7px;}
+  .toggle-row{display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--border);}
+  .toggle-row:last-child{border-bottom:none;}
+  .toggle-row .tl{font-size:13.5px; font-weight:600;}
+  .switch{position:relative; width:44px; height:25px; flex:none;}
+  .switch input{opacity:0; width:0; height:0;}
+  .slider{position:absolute; inset:0; background:#DAD6F2; border-radius:999px; cursor:pointer; transition:.2s;}
+  .slider:before{content:''; position:absolute; width:19px; height:19px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s;}
+  input:checked + .slider{background:var(--brand);}
+  input:checked + .slider:before{transform:translateX(19px);}
+</style>
+</head>
+<body>
+<div id="appRoot"></div>
+<script src="/js/app.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "paylink",
+  "version": "2.1.0",
+  "description": "Multi-merchant bKash/Nagad/Rocket/Upay payment platform on Cloudflare Workers + D1.",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:apply": "wrangler d1 execute paylink-db --file=./database/schema.sql",
+    "db:apply:remote": "wrangler d1 execute paylink-db --remote --file=./database/schema.sql",
+    "db:migrate:remote": "wrangler d1 execute paylink-db --remote --file=./database/migrations/0001_add_rocket_upay_and_adjustments.sql",
+    "secret:admin-key": "wrangler secret put ADMIN_KEY",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

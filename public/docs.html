@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ডেভেলপার ডকুমেন্টেশন</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  .docs-wrap{max-width:640px; margin:0 auto; padding:20px 16px 70px;}
+  .docs-nav{display:flex; align-items:center; justify-content:space-between; padding:6px 0 22px;}
+  .docs-nav .logo{display:flex; align-items:center; gap:9px; font-weight:800; font-size:16px;}
+  .docs-nav .mark{width:30px; height:30px; border-radius:9px; background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;}
+  .docs-nav a.home{color:var(--ink-soft); font-size:13px; font-weight:600; display:flex; align-items:center; gap:6px;}
+
+  .docs-hero{margin-bottom:26px;}
+  .docs-hero h1{font-size:23px; margin:0 0 10px;}
+  .docs-hero p{color:var(--ink-soft); font-size:13.5px; line-height:1.75;}
+
+  .endpoint-card{display:flex; align-items:center; gap:12px; background:var(--brand-dark); color:#fff; border-radius:16px; padding:15px 16px; margin-bottom:26px;}
+  .endpoint-card .lbl{font-size:10.5px; color:#B7B2D6; font-weight:700; margin-bottom:4px;}
+  .endpoint-card .url{font-family:'JetBrains Mono',monospace; font-size:13px; word-break:break-all;}
+  .endpoint-card button{flex:none; background:rgba(255,255,255,.14); border:none; color:#fff; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; cursor:pointer;}
+  .endpoint-card button.copied{background:var(--gold); color:var(--brand-dark);}
+
+  .code-block{margin-bottom:26px;}
+  .code-block .head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .code-block .head .t{display:flex; align-items:center; gap:9px; font-weight:700; font-size:14.5px;}
+  .code-block .head .t .ico{width:30px; height:30px; border-radius:9px; background:var(--brand-soft); color:var(--brand-deep); display:flex; align-items:center; justify-content:center; flex:none;}
+  .code-block .head .t .ico svg{width:16px; height:16px;}
+  .code-block p.desc{font-size:12.5px; color:var(--ink-soft); margin:0 0 10px 39px; line-height:1.65;}
+  .code-block pre{background:#15112D; color:#ECE9FB; border-radius:16px; padding:18px 18px 16px; overflow-x:auto; font-size:12.3px; line-height:1.7; margin:0; position:relative;}
+  .code-block .copybtn{position:absolute; top:12px; right:12px; background:rgba(255,255,255,.1); border:none; color:#ECE9FB; padding:6px 12px; border-radius:9px; font-size:11.5px; font-weight:700; cursor:pointer; font-family:inherit; display:flex; align-items:center; gap:5px;}
+  .code-block .copybtn.copied{background:var(--gold); color:var(--brand-dark);}
+  .code-block .wrap{position:relative;}
+  .tok-key{color:#7FD1FF;} .tok-str{color:#B7F0A6;} .tok-com{color:#8B87AA;}
+
+  .support-card{background:var(--surface); border:1px solid var(--border); border-radius:22px; padding:26px 24px; display:flex; align-items:center; gap:18px; box-shadow:var(--shadow-card);}
+  .support-card .ico{width:48px; height:48px; border-radius:14px; background:var(--brand-soft); color:var(--brand-deep); display:flex; align-items:center; justify-content:center; flex:none;}
+  .support-card h3{font-size:16px; margin:0 0 6px;}
+  .support-card p{font-size:12.5px; color:var(--ink-soft); line-height:1.65; margin:0 0 14px;}
+  .support-card .btn{width:100%;}
+  @media (max-width:480px){ .support-card{flex-direction:column; text-align:center;} }
+</style>
+</head>
+<body>
+<div class="docs-wrap">
+  <div class="docs-nav">
+    <div class="logo"><span class="mark" data-site-mark>P</span><span data-site-name>PayLink</span> ডকস</div>
+    <a class="home" href="/index.html" id="homeLink">← হোমে ফিরুন</a>
+  </div>
+
+  <div class="docs-hero">
+    <h1>ইন্টিগ্রেশন গাইড</h1>
+    <p>আপনার ওয়েবসাইট বা বট থেকে ইনভয়েস তৈরি করতে নিচের API endpoint ব্যবহার করুন, আর পেমেন্ট নিশ্চিত হওয়ার সাথে সাথে সিগন্যাল পেতে webhook হ্যান্ডলারটি বসিয়ে দিন।</p>
+  </div>
+
+  <div class="endpoint-card">
+    <div style="flex:1; min-width:0;">
+      <div class="lbl">API BASE URL</div>
+      <div class="url" id="baseUrl">https://your-worker.workers.dev</div>
+    </div>
+    <button id="copyBaseBtn"></button>
+  </div>
+
+  <div class="code-block">
+    <div class="head"><div class="t"><span class="ico" id="icoIntegrate"></span>ওয়েবসাইট ইন্টিগ্রেশন কোড</div></div>
+    <p class="desc">এই কোডটি আপনার সাইটে বসিয়ে একটি ইনভয়েস তৈরি করুন এবং কাস্টমারকে <code class="inline">payUrl</code>-এ পাঠিয়ে দিন।</p>
+    <div class="wrap"><pre id="codeIntegrate"></pre><button class="copybtn" data-target="codeIntegrate"></button></div>
+  </div>
+
+  <div class="code-block">
+    <div class="head"><div class="t"><span class="ico" id="icoWebhook"></span>/webhook হ্যান্ডলার কোড</div></div>
+    <p class="desc">পেমেন্ট যাচাই হলে এই ঠিকানায় সাইন করা একটি POST রিকোয়েস্ট আসবে। সিগনেচার যাচাই করতে আপনার নিজের API Key ব্যবহার করুন।</p>
+    <div class="wrap"><pre id="codeWebhook"></pre><button class="copybtn" data-target="codeWebhook"></button></div>
+  </div>
+
+  <div class="support-card">
+    <div class="ico" id="icoSupport"></div>
+    <div>
+      <h3>ইন্টিগ্রেশনে সাহায্য দরকার?</h3>
+      <p>আপনার ওয়েবসাইটে অটো পেমেন্ট ইন্টিগ্রেশনের জন্য এই সম্পূর্ণ ডকুমেন্টেশনটি কপি করে যেকোনো একটি AI মডেলকে দিতে পারেন, অথবা আমাদের দক্ষ ডেভেলপারের সাথে যোগাযোগ করতে পারেন।</p>
+      <a class="btn btn-primary" id="supportBtn" target="_blank" rel="noopener"></a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script src="/js/docs.js"></script>
+</body>
+</html>

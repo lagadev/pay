@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>অ্যাকাউন্ট তৈরি করুন</title>
+<link rel="stylesheet" href="/css/style.css" />
+<style>
+  body{display:flex; align-items:center; justify-content:center; min-height:100vh; padding:30px 16px;}
+  .authshell{width:100%; max-width:400px;}
+  .authcard{background:var(--surface); border-radius:26px; padding:28px 24px 24px; box-shadow:var(--shadow-pop); border:1px solid var(--border);}
+  .authcard .mark{width:52px; height:52px; border-radius:16px; background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; margin:0 auto 16px;}
+  .authcard h1{text-align:center; font-size:21px; margin:0 0 4px;}
+  .authcard p.sub{text-align:center; color:var(--ink-soft); font-size:13px; margin:0 0 22px;}
+  .authcard .foot{text-align:center; margin-top:16px; font-size:13px; color:var(--ink-soft);}
+  .authcard .foot a{font-weight:700;}
+</style>
+</head>
+<body>
+<div class="authshell">
+  <div class="authcard">
+    <div class="mark" data-site-mark>P</div>
+    <h1>অ্যাকাউন্ট তৈরি করুন</h1>
+    <p class="sub"><span data-site-name>PayLink</span>-এ আজই যোগ দিন</p>
+    <div class="alert bad" id="errBox"></div>
+
+    <form id="authForm">
+      <div class="field"><label>পুরো নাম</label><div class="inputwrap"><span class="ic" id="icUser"></span><input id="fullName" placeholder="আপনার আসল নাম" autocomplete="name" /></div></div>
+      <div class="field"><label>ইমেইল</label><div class="inputwrap"><span class="ic" id="icMail"></span><input id="email" type="email" placeholder="you@example.com" autocomplete="email" /></div></div>
+      <div class="field"><label>মোবাইল</label><div class="inputwrap"><span class="ic" id="icPhone"></span><input id="mobile" placeholder="01XXXXXXXXX" autocomplete="tel" /></div></div>
+      <div class="field"><label>টেলিগ্রাম (ঐচ্ছিক)</label><div class="inputwrap"><span class="ic" id="icTelegram"></span><input id="telegram" placeholder="@username" /></div></div>
+      <div class="field"><label>পাসওয়ার্ড</label><div class="inputwrap"><span class="ic" id="icLock1"></span><input id="password" type="password" placeholder="কমপক্ষে ৮ ক্যারেক্টার" autocomplete="new-password" /></div></div>
+      <div class="field"><label>পাসওয়ার্ড নিশ্চিত করুন</label><div class="inputwrap"><span class="ic" id="icLock2"></span><input id="password2" type="password" placeholder="আবার পাসওয়ার্ড দিন" autocomplete="new-password" /></div></div>
+      <button class="btn btn-primary btn-block" type="submit" id="submitBtn"><span id="icSubmit"></span> অ্যাকাউন্ট তৈরি করুন</button>
+    </form>
+
+    <div class="foot">অ্যাকাউন্ট আছে? <a href="/login.html">লগইন করুন</a></div>
+  </div>
+  <div class="back-home"><a href="/index.html">← হোমে ফিরে যান</a></div>
+</div>
+<script src="/js/app.js"></script>
+<script src="/js/auth.js" data-mode="signup"></script>
+</body>
+</html>
