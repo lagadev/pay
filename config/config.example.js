@@ -18,7 +18,7 @@ module.exports = {
   // --- required secret (wrangler secret put ADMIN_KEY) ----------------------
   // The key that unlocks /admin and every /api/admin/* + /api/sms/* route.
   // Generate a long random value, e.g.: openssl rand -hex 32
-  ADMIN_KEY: "tamim121",
+  ADMIN_KEY: "64fb2d9d6f7d8bfe2c545430d39ea5b596fecbf4b731245b58b6cdc3c6ef95da",
 
   // --- D1 database binding (declared in wrangler.toml, not here) ----------
   // env.DB  ->  the `paylink-db` D1 database bound in wrangler.toml.
