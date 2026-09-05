@@ -2,23 +2,15 @@ name = "paylink"
 main = "src/index.js"
 compatibility_date = "2025-06-01"
 
-# Static frontend (public/) is served directly by Cloudflare's asset layer.
-# Any request that doesn't match a static file falls through to src/index.js,
-# and /api/* is always routed to the Worker (see run_worker_first below).
 [assets]
 directory = "./public"
 binding = "ASSETS"
-run_worker_first = ["/api/*"]
+run_worker_first = true
 
-# D1 database — create with:
-#   wrangler d1 create paylink-db
-# then paste the returned database_id below.
 [[d1_databases]]
 binding = "DB"
 database_name = "paylink-db"
 database_id = "646f719d-0477-41fc-8447-00f558404ac9"
 
-# Non-secret defaults. The real admin key must NEVER go here —
-# set it with:  wrangler secret put ADMIN_KEY
 [vars]
 ENVIRONMENT = "production"
