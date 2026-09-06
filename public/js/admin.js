@@ -285,6 +285,7 @@
       f.innerHTML =
         groupTitle("shield", "সাইট") +
         text("SITE_NAME", "সাইটের নাম", s.SITE_NAME) +
+        text("LOGO_URL", "লোগোর URL (ফাঁকা রাখলে নামের প্রথম অক্ষর দেখাবে)", s.LOGO_URL, true) +
 
         groupTitle("wallet", "পেমেন্ট মেথড — নম্বর") +
         text("MERCHANT_BKASH_NUMBER", "bKash গ্রহণকারী নম্বর", s.MERCHANT_BKASH_NUMBER, true) +
@@ -319,7 +320,7 @@
 
       document.getElementById("saveSettings").addEventListener("click", function () {
         var ids = [
-          "SITE_NAME", "MERCHANT_BKASH_NUMBER", "MERCHANT_NAGAD_NUMBER", "MERCHANT_ROCKET_NUMBER", "MERCHANT_UPAY_NUMBER",
+          "SITE_NAME", "LOGO_URL", "MERCHANT_BKASH_NUMBER", "MERCHANT_NAGAD_NUMBER", "MERCHANT_ROCKET_NUMBER", "MERCHANT_UPAY_NUMBER",
           "INVOICE_TTL_MINUTES", "INVOICE_FEE_PERCENT", "PAYOUT_FEE_PERCENT", "PAYOUT_MIN",
           "SUPPORT_TELEGRAM", "SUPPORT_WHATSAPP", "SUPPORT_PHONE", "ANNOUNCEMENT_TEXT",
         ];

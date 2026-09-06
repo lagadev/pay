@@ -79,13 +79,15 @@
 
   function buildInstructions(method, number, amount) {
     var m = METHOD_META[method] || METHOD_META.bkash;
+    var brand = m.name.toUpperCase();
     return (
-      '<li><span class="dot"></span><span>' + m.ussd + " ডায়াল করুন, অথবা " + m.name + ' অ্যাপে যান।</span></li>' +
-      '<li><span class="dot"></span><span><span class="hl">"Send Money"</span> এ ক্লিক করুন।</span></li>' +
-      '<li><span class="dot"></span><span>নম্বর দিনঃ <span class="hl">' + number + '</span><button class="copytag" id="copyNumBtn" type="button">Copy</button></span></li>' +
-      '<li><span class="dot"></span><span>পরিমাণঃ <span class="hl">৳' + PL.fmt(amount) + '</span></span></li>' +
-      '<li><span class="dot"></span><span>আপনার মোবাইল মেনু পিন দিয়ে নিশ্চিত করুন।</span></li>' +
-      '<li><span class="dot"></span><span>নিশ্চিতকরণ SMS এলে, নিচে Transaction ID দিয়ে যাচাই করুন।</span></li>'
+      '<li><span class="dot"></span><span>' + m.ussd + " ডায়াল করে আপনার " + brand + " মোবাইল মেনুতে যান অথবা " + brand + ' অ্যাপে যান।</span></li>' +
+      '<li><span class="dot"></span><span><span class="hl">"Send Money"</span> -এ ক্লিক করুন।</span></li>' +
+      '<li><span class="dot"></span><span>প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুনঃ<br/><span class="hl">' + number + '</span><button class="copytag" id="copyNumBtn" type="button">Copy</button></span></li>' +
+      '<li><span class="dot"></span><span>টাকার পরিমাণঃ <span class="hl">৳' + PL.fmt(amount) + '</span></span></li>' +
+      '<li><span class="dot"></span><span>নিশ্চিত করতে এখন আপনার ' + brand + ' মোবাইল মেনু পিন লিখুন।</span></li>' +
+      '<li><span class="dot"></span><span>সবকিছু ঠিক থাকলে, আপনি ' + brand + ' থেকে একটি নিশ্চিতকরণ বার্তা পাবেন।</span></li>' +
+      '<li><span class="dot"></span><span>এখন উপরের বক্সে আপনার Transaction ID দিন এবং নিচের VERIFY বাটনে ক্লিক করুন।</span></li>'
     );
   }
 

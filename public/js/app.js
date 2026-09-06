@@ -115,7 +115,13 @@
 
   function applySettingsToDom(settings) {
     document.querySelectorAll("[data-site-name]").forEach(function (el) { el.textContent = settings.siteName; });
-    document.querySelectorAll("[data-site-mark]").forEach(function (el) { el.textContent = (settings.siteName || "P").charAt(0); });
+    document.querySelectorAll("[data-site-mark]").forEach(function (el) {
+      if (settings.logoUrl) {
+        el.innerHTML = '<img src="' + settings.logoUrl + '" alt="' + (settings.siteName || "Logo") + '" />';
+      } else {
+        el.textContent = (settings.siteName || "P").charAt(0);
+      }
+    });
     if (settings.announcement) {
       document.querySelectorAll("[data-announcement]").forEach(function (el) {
         el.innerHTML = icon("megaphone") + "<span>" + settings.announcement + "</span>";

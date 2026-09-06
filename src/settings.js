@@ -32,6 +32,11 @@ export const DEFAULTS = {
 
   // Free-text banner shown at the top of the merchant dashboard. Empty = hidden.
   ANNOUNCEMENT_TEXT: "",
+
+  // Site logo shown in every header/brand mark. Points at the bundled SVG by
+  // default; change it from /admin (Settings) to any image URL, or clear it
+  // to fall back to a plain text initial.
+  LOGO_URL: "/assets/logo.svg",
 };
 
 const BOOL_KEYS = ["SIGNUP_ENABLED", "BKASH_ENABLED", "NAGAD_ENABLED", "ROCKET_ENABLED", "UPAY_ENABLED", "MAINTENANCE_MODE"];
@@ -87,6 +92,7 @@ export function publicSettings(s) {
       phone: s.SUPPORT_PHONE,
     },
     announcement: s.ANNOUNCEMENT_TEXT,
+    logoUrl: s.LOGO_URL,
   };
 }
 
