@@ -13,14 +13,26 @@
   .brandbar .live{font-size:11px; color:var(--good); font-weight:700; display:flex; align-items:center; gap:5px;}
   .brandbar .live .dot{width:6px; height:6px; border-radius:50%; background:var(--good);}
   .hero{text-align:center; padding:6px 0 28px;}
-  .hero h1{font-size:clamp(26px,7vw,36px); line-height:1.25; margin:16px 0 14px; font-weight:800;}
+  .hero .eyebrow{font-size:12px; font-weight:800; letter-spacing:.08em; color:var(--brand-deep); margin:22px 0 10px; text-transform:uppercase;}
+  .hero h1{font-size:clamp(28px,8vw,42px); line-height:1.18; margin:0 0 16px; font-weight:800; letter-spacing:-0.01em;}
+  .hero h1 .accent{display:block; background:linear-gradient(135deg,var(--brand),#7C6CFF); -webkit-background-clip:text; background-clip:text; color:transparent;}
   .hero p{color:var(--ink-soft); font-size:14.5px; max-width:380px; margin:0 auto 24px; line-height:1.75;}
   .hero .ctas{display:flex; flex-direction:column; gap:10px; align-items:center;}
-  .hero .ctas .btn{width:100%; max-width:280px;}
-  .freepill{margin:24px auto 0; display:flex; flex-wrap:wrap; justify-content:center; gap:8px 16px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:13px 18px; font-size:12px; font-weight:700; color:var(--ink); max-width:400px;}
-  .methodrow{display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:22px;}
-  .methodchip{display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:9px 14px; font-weight:700; font-size:13px;}
-  .methodchip .sw{width:22px; height:22px; border-radius:7px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:10px; font-weight:800;}
+  .hero .ctas .btn{width:100%; max-width:280px; display:inline-flex; align-items:center; justify-content:center; gap:8px;}
+  .freepill{margin:24px auto 0; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:13px 18px; font-size:12.5px; font-weight:700; color:var(--ink); max-width:420px;}
+  .freepill .sep{color:var(--ink-faint); font-weight:400;}
+  .hero-badges{position:relative; max-width:420px; height:230px; margin:34px auto 0;}
+  .hero-badges svg{position:absolute; inset:0; width:100%; height:100%;}
+  .hero-badges svg line{stroke:var(--border); stroke-width:2; stroke-dasharray:4 5;}
+  .hb-badge{position:absolute; display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:9px 14px; font-weight:700; font-size:13px; box-shadow:var(--shadow-card); white-space:nowrap;}
+  .hb-badge .sw{width:24px; height:24px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:800; flex:none;}
+  .hb-slot-0{top:6px; left:2%;}
+  .hb-slot-1{top:36px; right:2%;}
+  .hb-slot-2{bottom:52px; left:0;}
+  .hb-slot-3{bottom:52px; right:0;}
+  .hb-center{position:absolute; left:50%; bottom:0; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px;}
+  .hb-center .mark{width:56px; height:56px; border-radius:18px; background:linear-gradient(135deg,var(--brand),var(--brand-deep)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; box-shadow:0 16px 28px -12px var(--brand);}
+  .hb-center span{font-size:11px; font-weight:800; letter-spacing:.05em; color:var(--ink-soft);}
   .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:32px 0;}
   .feat{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:18px 16px;}
   .feat .ico{width:36px; height:36px; border-radius:11px; background:var(--brand-soft); display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--brand-deep);}
@@ -44,17 +56,26 @@
   </div>
 
   <div class="hero">
-    <div class="pill">মাল্টি-মার্চেন্ট পেমেন্ট প্ল্যাটফর্ম</div>
-    <h1>bKash, Nagad, Rocket ও Upay<br/>পেমেন্ট নিন কয়েক সেকেন্ডে</h1>
-    <p>সাইনআপ করুন, একটি API key নিন, আর প্ল্যাটফর্মের যাচাইকৃত নম্বর দিয়ে পেমেন্ট নেওয়া শুরু করুন — SMS দিয়ে অটো-ভেরিফাই হয়ে সরাসরি আপনার ওয়ালেটে জমা হবে।</p>
+    <div class="pill">● বাংলাদেশ পেমেন্ট গেটওয়ে</div>
+    <div class="eyebrow" data-site-name>PayLink</div>
+    <h1>সহজ পেমেন্ট।<span class="accent">নিরাপদ, দ্রুত, ঝামেলাহীন।</span></h1>
+    <p>বাংলাদেশের জন্য শক্তিশালী পেমেন্ট ইনফ্রাস্ট্রাকচার — আধুনিক ব্যবসা, ক্রিয়েটর, ডেভেলপার আর অনলাইন প্ল্যাটফর্মের জন্য তৈরি।</p>
     <div class="ctas">
-      <a class="btn btn-primary" id="signupCta" href="/signup.html">শুরু করুন →</a>
-      <a class="btn btn-ghost" href="/docs.html">কীভাবে কাজ করে দেখুন</a>
+      <a class="btn btn-primary" id="signupCta" href="/signup.html">শুরু করুন <span id="icoArrow"></span></a>
+      <a class="btn btn-ghost" href="#works">কীভাবে কাজ করে দেখুন</a>
     </div>
     <div class="freepill">
-      <span>বিনামূল্যে সেটআপ</span><span>তাৎক্ষণিক SMS ভেরিফিকেশন</span><span>স্বচ্ছ ফি</span>
+      <span>বিনামূল্যে সেটআপ</span><span class="sep">•</span><span>তাৎক্ষণিক SMS ভেরিফিকেশন</span><span class="sep">•</span><span>স্বচ্ছ ফি</span>
     </div>
-    <div class="methodrow" id="methodRow"></div>
+    <div class="hero-badges" id="heroBadges">
+      <svg viewBox="0 0 420 230" preserveAspectRatio="none">
+        <line id="hbLine0" x1="70" y1="34" x2="200" y2="196" />
+        <line id="hbLine1" x1="350" y1="64" x2="200" y2="196" />
+        <line id="hbLine2" x1="50" y1="196" x2="200" y2="196" />
+        <line id="hbLine3" x1="350" y1="196" x2="200" y2="196" />
+      </svg>
+      <div class="hb-center"><span class="mark" data-site-mark>P</span><span data-site-name>PayLink</span></div>
+    </div>
   </div>
 
   <div class="grid">
@@ -88,15 +109,34 @@
     document.getElementById("icoSms").innerHTML = PL.icon("sms");
     document.getElementById("icoWebhook").innerHTML = PL.icon("webhook");
     document.getElementById("icoShield").innerHTML = PL.icon("shield");
+    document.getElementById("icoArrow").innerHTML = PL.icon("arrowRight");
 
     if (!settings.signupEnabled) document.getElementById("signupCta").style.display = "none";
 
-    var chips = [];
-    if (settings.methods.bkash) chips.push('<div class="methodchip"><span class="sw" style="background:var(--bkash)">৳</span>bKash</div>');
-    if (settings.methods.nagad) chips.push('<div class="methodchip"><span class="sw" style="background:var(--nagad)">৳</span>Nagad</div>');
-    if (settings.methods.rocket) chips.push('<div class="methodchip"><span class="sw" style="background:var(--rocket)">৳</span>Rocket</div>');
-    if (settings.methods.upay) chips.push('<div class="methodchip"><span class="sw" style="background:var(--upay)">৳</span>Upay</div>');
-    document.getElementById("methodRow").innerHTML = chips.join("");
+    var methodMeta = {
+      bkash: { name: "bKash", color: "var(--bkash)" },
+      nagad: { name: "Nagad", color: "var(--nagad)" },
+      rocket: { name: "Rocket", color: "var(--rocket)" },
+      upay: { name: "Upay", color: "var(--upay)" },
+    };
+    var enabledMethods = ["bkash", "nagad", "rocket", "upay"].filter(function(m){ return settings.methods[m]; });
+
+    var badgesEl = document.getElementById("heroBadges");
+    enabledMethods.slice(0, 4).forEach(function(methodId, i){
+      var meta = methodMeta[methodId];
+      var badge = document.createElement("div");
+      badge.className = "hb-badge hb-slot-" + i;
+      badge.innerHTML = '<span class="sw" style="background:' + meta.color + '">৳</span>' + meta.name;
+      badgesEl.appendChild(badge);
+    });
+    // hide the connector line for any slot that has no badge in it
+    for (var i = 0; i < 4; i++) {
+      if (i >= enabledMethods.length) {
+        var line = document.getElementById("hbLine" + i);
+        if (line) line.style.display = "none";
+      }
+    }
+    if (!enabledMethods.length) badgesEl.style.display = "none";
   });
 })();
 </script>
