@@ -2,7 +2,7 @@
 // src/invoices.js — invoice creation (merchant API key) and the public
 // customer-facing lifecycle (fetch / select method / verify).
 // ============================================================================
-import { json, readJson, genId, normalizeMethod, normalizeTrx, AMOUNT_TOLERANCE } from "./utils.js";
+import { json, readJson, genId, normalizeMethod, normalizeTrx, sanitizeRedirectUrl, AMOUNT_TOLERANCE } from "./utils.js";
 import { getSettings, merchantNumberFor, isMethodEnabled } from "./settings.js";
 import { getMerchantByApiKey } from "./auth.js";
 import { fireWebhook } from "./webhooks.js";
@@ -12,6 +12,7 @@ export function invoiceToPublic(inv) {
     id: inv.id, reference: inv.reference, amount: inv.amount, feeAmount: inv.fee_amount, netAmount: inv.net_amount,
     method: inv.method, merchantNumber: inv.merchant_number, status: inv.status, trxId: inv.trx_id,
     senderNumber: inv.sender_number, createdAt: inv.created_at, expiresAt: inv.expires_at, verifiedAt: inv.verified_at,
+    successUrl: inv.success_url, cancelUrl: inv.cancel_url,
   };
 }
 
@@ -25,9 +26,13 @@ export async function createInvoice(request, env, url) {
   const amount = Number(body.amount);
   const reference = body.reference ? String(body.reference).slice(0, 128) : null;
   const callbackUrl = body.callbackUrl ? String(body.callbackUrl).slice(0, 500) : null;
+  const successUrl = sanitizeRedirectUrl(body.successUrl);
+  const cancelUrl = sanitizeRedirectUrl(body.cancelUrl);
   const method = body.method ? normalizeMethod(body.method) : null;
 
   if (!amount || amount <= 0) return json({ error: "একটি সঠিক পরিমাণ ('amount') আবশ্যক।" }, 400);
+  if (body.successUrl && !successUrl) return json({ error: "successUrl অবশ্যই একটি বৈধ http(s) ঠিকানা হতে হবে।" }, 400);
+  if (body.cancelUrl && !cancelUrl) return json({ error: "cancelUrl অবশ্যই একটি বৈধ http(s) ঠিকানা হতে হবে।" }, 400);
   if (method && !isMethodEnabled(settings, method)) return json({ error: "এই পেমেন্ট মেথডটি বর্তমানে বন্ধ আছে।" }, 400);
 
   const merchantNumber = method ? merchantNumberFor(settings, method) : null;
@@ -36,12 +41,12 @@ export async function createInvoice(request, env, url) {
   const expiresAt = now + settings.INVOICE_TTL_MINUTES * 60 * 1000;
 
   await env.DB.prepare(
-    `INSERT INTO invoices (id, merchant_id, reference, amount, fee_amount, net_amount, method, merchant_number, status, callback_url, created_at, expires_at)
-     VALUES (?, ?, ?, ?, 0, 0, ?, ?, 'pending', ?, ?, ?)`
-  ).bind(id, merchant.id, reference, amount, method, merchantNumber, callbackUrl, now, expiresAt).run();
+    `INSERT INTO invoices (id, merchant_id, reference, amount, fee_amount, net_amount, method, merchant_number, status, callback_url, success_url, cancel_url, created_at, expires_at)
+     VALUES (?, ?, ?, ?, 0, 0, ?, ?, 'pending', ?, ?, ?, ?, ?)`
+  ).bind(id, merchant.id, reference, amount, method, merchantNumber, callbackUrl, successUrl, cancelUrl, now, expiresAt).run();
 
   const payUrl = `${url.origin}/pay?id=${id}`;
-  return json({ id, reference, amount, method, merchantNumber, status: "pending", createdAt: now, expiresAt, payUrl }, 201);
+  return json({ id, reference, amount, method, merchantNumber, status: "pending", createdAt: now, expiresAt, payUrl, successUrl, cancelUrl }, 201);
 }
 
 export async function getInvoice(id, env) {

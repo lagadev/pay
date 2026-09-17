@@ -269,6 +269,27 @@ export async function signPayload(payload, key) {
 }
 
 // ----------------------------------------------------------------------------
+// Redirect URL sanitization (successUrl / cancelUrl on invoices)
+// ----------------------------------------------------------------------------
+
+// Only http(s) URLs are accepted — this is assigned to `location.href` in the
+// browser, so anything else (javascript:, data:, vbscript:, etc.) must be
+// rejected to prevent a malicious "successUrl" from being used as an XSS
+// payload against the customer's pay page.
+export function sanitizeRedirectUrl(value) {
+  const raw = String(value || "").trim().slice(0, 500);
+  if (!raw) return null;
+
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null;
+    return raw;
+  } catch {
+    return null;
+  }
+}
+
+// ----------------------------------------------------------------------------
 // Platform constants
 // ----------------------------------------------------------------------------
 

@@ -20,6 +20,16 @@
 
   var invoice = null, settings = null, pollTimer = null, tickTimer = null, expiredHandled = false;
 
+  // Appends query params to a merchant-supplied redirect URL, respecting
+  // whatever query string (if any) it already has.
+  function buildRedirectUrl(baseUrl, params) {
+    var joined = baseUrl.indexOf("?") === -1 ? "?" : "&";
+    var query = Object.keys(params).map(function (k) {
+      return encodeURIComponent(k) + "=" + encodeURIComponent(params[k] == null ? "" : params[k]);
+    }).join("&");
+    return baseUrl + joined + query;
+  }
+
   el("errIcon").innerHTML = PL.icon("x");
   el("successIcon").innerHTML = PL.icon("bigcheck");
   el("expiredIcon").innerHTML = PL.icon("clock");
@@ -30,7 +40,12 @@
 
   el("backHomeBtn1").addEventListener("click", function () { location.href = "/index.html"; });
   el("closeBtn").addEventListener("click", function () {
-    if (confirm("আপনি কি পেমেন্ট থেকে বের হয়ে যেতে চান?")) location.href = "/index.html";
+    if (!confirm("আপনি কি পেমেন্ট থেকে বের হয়ে যেতে চান?")) return;
+    if (invoice && invoice.cancelUrl) {
+      location.href = buildRedirectUrl(invoice.cancelUrl, { status: "cancelled", invoiceId: invoice.id, reference: invoice.reference || "" });
+    } else {
+      location.href = "/index.html";
+    }
   });
   el("backMethodBtn").addEventListener("click", function () {
     clearInterval(tickTimer);
@@ -116,7 +131,13 @@
     clearInterval(tickTimer);
     if (pollTimer) clearInterval(pollTimer);
     show("expiredState");
-    setTimeout(function () { location.href = "/index.html"; }, 1000);
+    setTimeout(function () {
+      if (invoice && invoice.cancelUrl) {
+        location.href = buildRedirectUrl(invoice.cancelUrl, { status: "expired", invoiceId: invoice.id, reference: invoice.reference || "" });
+      } else {
+        location.href = "/index.html";
+      }
+    }, 1000);
   }
 
   function showSuccess(trxId) {
@@ -124,6 +145,17 @@
     if (pollTimer) clearInterval(pollTimer);
     el("successTrx").textContent = "Transaction ID: " + trxId;
     show("successState");
+    if (invoice && invoice.successUrl) {
+      el("successState").insertAdjacentHTML(
+        "beforeend",
+        '<p class="redirect-note" id="redirectNote">মার্চেন্টের সাইটে ফিরিয়ে নেওয়া হচ্ছে…</p>'
+      );
+      setTimeout(function () {
+        location.href = buildRedirectUrl(invoice.successUrl, {
+          status: "verified", invoiceId: invoice.id, reference: invoice.reference || "", trxId: trxId,
+        });
+      }, 2500);
+    }
   }
 
   function enterPayState() {

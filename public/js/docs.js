@@ -34,12 +34,17 @@
     '    body: JSON.stringify({\n' +
     '      amount: amount,\n' +
     '      reference: reference,\n' +
-    '      callbackUrl: "https://yoursite.com/webhook"\n' +
+    '      callbackUrl: "https://yoursite.com/webhook",   // সার্ভার-টু-সার্ভার নোটিফিকেশন (আসল সত্যতা এখান থেকেই যাচাই করুন)\n' +
+    '      successUrl: "https://yoursite.com/thank-you",  // ঐচ্ছিক — পেমেন্ট সফল হলে কাস্টমারের ব্রাউজার এখানে ফিরে যাবে\n' +
+    '      cancelUrl: "https://yoursite.com/cart"          // ঐচ্ছিক — কাস্টমার বের হয়ে গেলে বা মেয়াদ শেষ হলে এখানে ফিরে যাবে\n' +
     '    })\n' +
     '  });\n\n' +
     '  const invoice = await res.json();\n' +
     '  window.location.href = invoice.payUrl; // কাস্টমারকে পেমেন্ট পেজে পাঠান\n' +
-    '}';
+    '}\n\n' +
+    '// successUrl/cancelUrl-এ ফিরে আসার সময় ?status=verified|expired|cancelled&invoiceId=...&reference=...\n' +
+    '// কোয়েরি প্যারাম যোগ হয়ে আসবে UX-এর জন্য — কিন্তু আসল নিশ্চয়তা সবসময় callbackUrl (webhook) থেকেই নিন,\n' +
+    '// কারণ URL প্যারাম কাস্টমার নিজেই বদলে দিতে পারে।';
 
   var webhookCode =
     '// POST /webhook — পেমেন্ট যাচাই হলে এখানে সিগনাল আসবে\n' +

@@ -9,6 +9,7 @@
     "db:apply": "wrangler d1 execute paylink-db --file=./database/schema.sql",
     "db:apply:remote": "wrangler d1 execute paylink-db --remote --file=./database/schema.sql",
     "db:migrate:remote": "wrangler d1 execute paylink-db --remote --file=./database/migrations/0001_add_rocket_upay_and_adjustments.sql",
+    "db:migrate:success-cancel-url:remote": "wrangler d1 execute paylink-db --remote --file=./database/migrations/0002_add_success_cancel_url.sql",
     "secret:admin-key": "wrangler secret put ADMIN_KEY",
     "tail": "wrangler tail"
   },

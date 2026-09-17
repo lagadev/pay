@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS invoices (
   trx_id          TEXT,
   sender_number   TEXT,
   callback_url    TEXT,
+  success_url     TEXT,                              -- customer's browser redirects here after payment succeeds
+  cancel_url      TEXT,                               -- ...and here if they back out / close the pay page
   created_at      INTEGER NOT NULL,
   expires_at      INTEGER NOT NULL,
   verified_at     INTEGER
